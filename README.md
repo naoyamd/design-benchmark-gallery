@@ -4,7 +4,7 @@ GitHub Pagesで配信する、共有パスワード付きの設計ベンチマ�
 
 ## 閲覧
 
-[ギャラリーを開く](https://naoyamd.github.io/design-benchmark-gallery/)
+[ギャラリーを開く](https://intake.nightly.dedyn.io/)
 
 入口で共有パスワードを入力すると、比較用のリンク集が開きます。解除状態はそのブラウザで12時間記憶します。共有PCではリンク集の「ロック」で解除状態を削除してください。最新のChromeまたはEdgeの通常ウィンドウを推奨します。JavaScript、Service Worker、IndexedDB、Web Crypto、DecompressionStreamが必要です。
 
@@ -43,7 +43,7 @@ node scripts/pack.mjs --source /absolute/path/to/private-content
 
 パッケージの更新後は、閲覧者にパスワードの再入力が必要です。パスワード変更時も同じ手順で再パッケージしてください。既に取得された古い暗号化パッケージは、古いパスワードで解除可能です。
 
-ローカル表示は `python -m http.server 8000 --directory public` で確認できます。404ページの戻り先はこのリポジトリ名に合わせています。リポジトリを改名する場合は `public/404.html` も更新してください。
+ローカル表示は `python -m http.server 8000 --directory public` で確認できます。独自ドメイン `intake.nightly.dedyn.io` をGitHub Pagesに設定し、DNSのCNAMEは `naoyamd.github.io` を参照します。404ページではドメイン直下の入口へ戻り、解除後に元のページへ移動します。GitHub Actionsで配備するため、CNAMEファイルは使用しません。
 
 ## 元データ・ライセンス
 
