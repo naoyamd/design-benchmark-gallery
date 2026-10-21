@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="theme-color" content="#101921">
-  <title>Design Benchmark Gallery — パスワード</title>
+  <title>Design Benchmark Gallery — Access</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101921'/%3E%3Cpath d='M16 18h32v28H16zM16 32h32M32 18v28' fill='none' stroke='%2389dbc5' stroke-width='4'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="unlock.css">
   <script src="unlock.js" defer></script>
@@ -14,16 +14,16 @@
   <main>
     <div class="mark" aria-hidden="true">▦</div>
     <p class="eyebrow">DESIGN BENCHMARK GALLERY</p>
-    <h1>設計の、その先へ。</h1>
-    <p class="intro">共有されたパスワードを入力すると、<br>ベンチマークの成果物を閲覧できます。</p>
-    <form id="unlock-form">
-      <label for="password">共有パスワード</label>
+    <h1>Explore the designs.</h1>
+    <p class="intro">Enter the shared password to explore<br>the benchmark collection.</p>
+    <form id="unlock-form" novalidate>
+      <label for="password">Shared password</label>
       <input id="password" name="password" type="password" autocomplete="current-password" required aria-describedby="status" autofocus>
-      <button type="submit" id="unlock-button">ギャラリーを開く <span aria-hidden="true">→</span></button>
+      <button type="submit" id="unlock-button">Open gallery <span aria-hidden="true">→</span></button>
       <p id="status" role="status" aria-live="polite"></p>
     </form>
-    <p class="note">アカウント登録は不要です。解除状態はこのブラウザで12時間記憶します。共有PCでは、閲覧後にギャラリーの「ロック」を押してください。</p>
-    <noscript><p class="error">閲覧にはJavaScriptが必要です。</p></noscript>
+    <p class="note">No account required. This browser stays unlocked for 12 hours. On a shared computer, select “Lock” in the gallery when you finish.</p>
+    <noscript><p class="error">JavaScript is required to view this gallery.</p></noscript>
   </main>
   <footer>DESIGN, INSPECT, COMPARE.</footer>
 </body>

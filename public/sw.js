@@ -98,7 +98,7 @@ self.addEventListener('message', event => {
         reply({ ok: true });
       }
     } catch (error) {
-      reply({ ok: false, message: error.name === 'OperationError' ? 'パスワードが違います。もう一度お試しください。' : '読み込めませんでした。接続を確認して、ChromeまたはEdgeの通常ウィンドウでお試しください。' });
+      reply({ ok: false, message: error.name === 'OperationError' ? 'Incorrect password. Please try again.' : 'Unable to load the gallery. Check your connection and try a regular Chrome or Edge window.' });
     }
   })());
 });
