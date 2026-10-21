@@ -1,0 +1,6 @@
+.env
+.env.*
+!.env.example
+*.dpapi
+.auth.caddy
+__pycache__/
