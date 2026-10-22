@@ -47,6 +47,8 @@ node scripts/pack.mjs --source /absolute/path/to/private-content
 
 ## 元データ・ライセンス
 
+RLG-003 r02の6輪引込主脚ビューワーは、[`naoyamd/freecad-benchmark-viewer`](https://github.com/naoyamd/freecad-benchmark-viewer/tree/main/sites/RLG-003_Astra_Luna_r02) の独立サイトを `sites/RLG-003_Astra_Luna_r02/` に取り込んでいます。ギャラリーから670部品・11姿勢・通常格納17サンプル、断面・分解、計算・図面・失敗例を閲覧できます。設計のNG・保留は画面に明示し、採点・実機適合を示すものとして扱いません。認証後のURLは <https://intake.nightly.dedyn.io/sites/RLG-003_Astra_Luna_r02/> です。
+
 FLG-002_r01の提供ファイル36点を改変せず暗号化パッケージに収録しています。three.jsのMITライセンスと元READMEも同梱しています。設計はベンチマーク評価用のAI生成予備設計であり、飛行・製造用途には使用できません。採点・ゲート判定は独立検証待ちです。
 
 参考: [GitHub Pagesのアクセス制御](https://docs.github.com/en/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site)、[Web Cryptoによる復号](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/decrypt)
