@@ -52,3 +52,5 @@ RLG-003 r02の6輪引込主脚ビューワーは、[`naoyamd/freecad-benchmark-v
 FLG-002_r01の提供ファイル36点を改変せず暗号化パッケージに収録しています。three.jsのMITライセンスと元READMEも同梱しています。設計はベンチマーク評価用のAI生成予備設計であり、飛行・製造用途には使用できません。採点・ゲート判定は独立検証待ちです。
 
 参考: [GitHub Pagesのアクセス制御](https://docs.github.com/en/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site)、[Web Cryptoによる復号](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/decrypt)
+
+発表スライド INTAKE_CAD_20261023.pdf（22ページ）は、RLG-003のFiles一覧から取得できます。共有パスワードを含むため、原本は暗号化パッケージ内だけに追加し、公開リポジトリには平文で置きません。
