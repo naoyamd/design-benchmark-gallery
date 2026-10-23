@@ -53,4 +53,4 @@ FLG-002_r01の提供ファイル36点を改変せず暗号化パッケージに�
 
 参考: [GitHub Pagesのアクセス制御](https://docs.github.com/en/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site)、[Web Cryptoによる復号](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/decrypt)
 
-発表スライド INTAKE_CAD_20261023.pdf（22ページ）は、RLG-003のFiles一覧から取得できます。共有パスワードを含むため、原本は暗号化パッケージ内だけに追加し、公開リポジトリには平文で置きません。
+発表スライド INTAKE_CAD_20261023.pdf（22ページ）は、ギャラリーホーム先頭の「まずはこちら」から取得できます。認証前の入口でもスライドを先に読む流れを案内し、RLG-003のExplorer先頭とFiles一覧にもリンクを置いています。共有パスワードを含むため、原本は暗号化パッケージ内だけに追加し、公開リポジトリには平文で置きません。
