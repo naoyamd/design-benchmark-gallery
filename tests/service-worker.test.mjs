@@ -5,9 +5,10 @@ import vm from 'node:vm';
 
 async function loadWorker(files) {
   const source = await readFile(new URL('../public/sw.js', import.meta.url), 'utf8');
+  const listeners = {};
   const self = {
     registration: { scope: 'https://gallery.example.test/' },
-    addEventListener() {},
+    addEventListener(type,handler) { listeners[type]=handler; },
     skipWaiting() {},
     clients: { claim() {}, matchAll: async () => [] }
   };
@@ -25,6 +26,7 @@ async function loadWorker(files) {
   };
   const encoded = Object.fromEntries(Object.entries(files).map(([name, bytes]) => [name, Buffer.from(bytes).toString('base64')]));
   vm.runInNewContext(`${source}\nconst __testFiles = ${JSON.stringify(encoded)}; restore = async () => __testFiles; globalThis.__serve = serve; globalThis.__setRestore = value => { restore = value; };`, context);
+  context.__listeners=listeners;
   return context;
 }
 
@@ -38,6 +40,17 @@ test('serves nested .mjs files as JavaScript with exact binary content', async (
   assert.equal(response.status, 200);
   assert.equal(response.headers.get('Content-Type'), 'text/javascript; charset=utf-8');
   assert.deepEqual([...new Uint8Array(await response.arrayBuffer())], [...bytes]);
+});
+
+test('public OGP cover bypasses authentication while project data remains protected',async()=>{
+  const context=await loadWorker({});
+  context.__setRestore(async()=>null);
+  let intercepted=false;
+  context.__listeners.fetch({request:{url:'https://gallery.example.test/ogp-intake-camp-2026.png',method:'GET'},respondWith(){intercepted=true;}});
+  assert.equal(intercepted,false);
+  let protectedResponse;
+  context.__listeners.fetch({request:{url:'https://gallery.example.test/projects.json',method:'GET',mode:'same-origin'},respondWith(response){protectedResponse=response;}});
+  assert.equal((await protectedResponse).status,401);
 });
 
 test('keeps unauthenticated nested navigation redirect and asset 401 behavior', async () => {

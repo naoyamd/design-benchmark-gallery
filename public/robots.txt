@@ -1,2 +1,5 @@
 User-agent: *
+Allow: /$
+Allow: /index.html$
+Allow: /ogp-intake-camp-2026.png$
 Disallow: /
