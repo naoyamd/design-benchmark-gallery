@@ -23,7 +23,7 @@ form.addEventListener('submit', async event => {
     return;
   }
   button.disabled = true;
-  status.textContent = 'Opening gallery…';
+  status.textContent = 'Opening the results…';
   try {
     const registration = await workerReady;
     const result = await new Promise((resolve, reject) => {

@@ -1,12 +1,12 @@
-# Design Benchmark Gallery
+# INTAKE Camp 2026
 
-GitHub Pagesで配信する、共有パスワード付きの設計ベンチマークギャラリーです。アカウント登録は不要で、URLと共通パスワードを知っている人がブラウザで閲覧できます。
+GitHub Pagesで配信する、共有パスワード付きのBootcamp成果発表ページです。認証後にイベント説明と6人分のテーマ概要・発表PDFへのリンクが並び、CADビューワーは成果の1つとして下位ページから開きます。ホームのUIは英語のみです。
 
 ## 閲覧
 
-[ギャラリーを開く](https://intake.nightly.dedyn.io/)
+[成果発表ページを開く](https://intake.nightly.dedyn.io/)
 
-入口で共有パスワードを入力すると、比較用のリンク集が開きます。解除状態はそのブラウザで12時間記憶します。共有PCではリンク集の「ロック」で解除状態を削除してください。最新のChromeまたはEdgeの通常ウィンドウを推奨します。JavaScript、Service Worker、IndexedDB、Web Crypto、DecompressionStreamが必要です。
+入口で共有パスワードを入力すると、イベント説明と6テーマの成果一覧が開きます。解除状態はそのブラウザで12時間記憶します。共有PCではリンク集の「ロック」で解除状態を削除してください。最新のChromeまたはEdgeの通常ウィンドウを推奨します。JavaScript、Service Worker、IndexedDB、Web Crypto、DecompressionStreamが必要です。
 
 ## 配信・保護の仕組み
 
@@ -24,15 +24,19 @@ VPS、外部の認証サーバー、有料サービスは使用しません。`m
 
 ```text
 private-content/
-  index.html             # 解除後のリンク集
+  index.html             # 認証後のイベント成果ページ
   gallery.css
   gallery.js
-  sites.json             # 一覧データ
-  sites/<ID>/            # 各サイト一式。相対パスで参照
+  gallery-core.mjs        # 6テーマと内部リンクの検証
+  projects.json          # 表示名・テーマ概要・PDF・下位ページ
+  cad/                   # CAD成果の一覧ページ
+  sites.json             # 既存CADビューワーの一覧データ
+  sites/<ID>/            # 既存ビューワー一式
+  presentations/         # 今後追加する参加者のPDF（任意）
 ```
 
-1. `sites/<ID>/` に新しいサイトを入れます。IDは英数字・ハイフン・アンダースコアにしてください。
-2. `sites.json` に `id`, `model`, `status`, `title`, `description`, `href`, `image`, `imageAlt` を追加します。`href` は `sites/<ID>/` 形式で、末尾の `/` が必要です。
+1. 発表PDFを非公開の元フォルダへ置き、`projects.json` の対象テーマの `presenter`, `title`, `summary`, `pdf.href`, `pdf.pages`, `pdf.bytes` を更新します。`id` は重複不可、成果は6件、PDFと下位ページはサイト内の相対パスにします。実資料へ差し替えたテーマは `sample: false` にします。
+2. CAD成果へのリンクは `viewerHref: "cad/"`、PDFのみのテーマは `viewerHref: null`。既存CADの追加時だけ `sites/<ID>/` と `sites.json` を更新します。
 3. パスワードを標準入力から渡して暗号化します。パスワードを引数・ファイル・ログ・Gitへ保存しないでください。
 
 ```sh
@@ -53,4 +57,4 @@ FLG-002_r01の提供ファイル36点を改変せず暗号化パッケージに�
 
 参考: [GitHub Pagesのアクセス制御](https://docs.github.com/en/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site)、[Web Cryptoによる復号](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/decrypt)
 
-発表スライド INTAKE_CAD_20261023.pdf（22ページ）は、英語のみで構成したギャラリーホーム先頭の「Start with the presentation.」から取得できます。認証前の入口でもスライドを先に読む流れを案内し、RLG-003のExplorer先頭とFiles一覧にもリンクを置いています。共有パスワードを含むため、原本は暗号化パッケージ内だけに追加し、公開リポジトリには平文で置きません。
+現在はユーザー指定により、6テーマすべてが同じ発表PDFを参照する仮の構成です。1件目のINTAKE CADからのみ `cad/` へ進み、2つの既存CADビューワーを開けます。残り5テーマはSample presentationと明示し、氏名・テーマ・PDFを後から差し替えます。PDF実体は1つを共有し、複製していません。PDFには共有パスワードが含まれるため、原本は暗号化パッケージ内だけに入れ、公開GitHubへ平文で置きません。

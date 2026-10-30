@@ -52,3 +52,37 @@ test('keeps unauthenticated nested navigation redirect and asset 401 behavior', 
   assert.equal(asset.status, 401);
   assert.equal(await asset.text(), 'Password required');
 });
+
+test('event home starts at the password gate and protects projects, PDFs, and CAD links', async () => {
+  const context = await loadWorker({});
+  context.__setRestore(async () => null);
+  context.fetch = async url => {
+    assert.equal(url.href, 'https://gallery.example.test/index.html');
+    return new Response('Password gate');
+  };
+  const home = await context.__serve({mode:'navigate',method:'GET'},new URL('https://gallery.example.test/'),'');
+  assert.equal(await home.text(),'Password gate');
+  const cad = await context.__serve({mode:'navigate',method:'GET'},new URL('https://gallery.example.test/cad/'),'cad/');
+  assert.equal(cad.status,302);
+  assert.equal(cad.headers.get('location'),'https://gallery.example.test/?next=%2Fcad%2F');
+  for (const path of ['projects.json','gallery-core.mjs','sites/RLG-003_Astra_Luna_r02/downloads/INTAKE_CAD_20261023.pdf']) {
+    const response = await context.__serve({mode:'same-origin',method:'GET'},new URL(path,'https://gallery.example.test/'),path);
+    assert.equal(response.status,401,path);
+  }
+});
+
+test('unlocked event pages, project data and PDFs are served with correct types and bytes', async () => {
+  const fixtures = {
+    'index.html':['<h1>INTAKE Camp 2026</h1>','text/html; charset=utf-8'],
+    'projects.json':['{"projects":[]}','application/json; charset=utf-8'],
+    'cad/index.html':['<h1>CAD results</h1>','text/html; charset=utf-8'],
+    'slides/sample.pdf':['%PDF-1.7\nexample','application/pdf']
+  };
+  const context = await loadWorker(Object.fromEntries(Object.entries(fixtures).map(([path,[bytes]])=>[path,bytes])));
+  for (const [path,[bytes,type]] of Object.entries(fixtures)) {
+    const response = await context.__serve({mode:'same-origin',method:'GET'},new URL(path,'https://gallery.example.test/'),path);
+    assert.equal(response.status,200,path);
+    assert.equal(response.headers.get('Content-Type'),type,path);
+    assert.equal(await response.text(),bytes,path);
+  }
+});
