@@ -58,3 +58,5 @@ FLG-002_r01の提供ファイル36点を改変せず暗号化パッケージに�
 参考: [GitHub Pagesのアクセス制御](https://docs.github.com/en/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site)、[Web Cryptoによる復号](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/decrypt)
 
 現在はユーザー指定により、6テーマすべてが同じ発表PDFを参照する仮の構成です。1件目のINTAKE CADからのみ `cad/` へ進み、2つの既存CADビューワーを開けます。残り5テーマはSample presentationと明示し、氏名・テーマ・PDFを後から差し替えます。PDF実体は1つを共有し、複製していません。PDFには共有パスワードが含まれるため、原本は暗号化パッケージ内だけに入れ、公開GitHubへ平文で置きません。
+
+イベントホームとCAD一覧のPDF保存は、認証済みのfetchでPDF応答を確認し、一時Blobを経由して保存します。通常のdownloadリンクがService Workerを通らないブラウザーでも、暗号化配信を保って保存できます。認証に失敗したHTMLをPDFとして保存しないことも検査します。
